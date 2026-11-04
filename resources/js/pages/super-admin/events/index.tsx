@@ -1,16 +1,16 @@
-import { Head, Link } from "@inertiajs/react";
-import { EventStatusBadge } from "@/components/event-status-badge";
-import { Button } from "@/components/ui/button";
-import type { EventRow } from "@/types/event";
+import { Head, Link } from '@inertiajs/react';
+import { EventStatusBadge } from '@/components/event-status-badge';
+import { Button } from '@/components/ui/button';
+import type { EventRow } from '@/types/event';
 
 function formatDate(value: string | null): string {
     if (!value) {
-        return "Not set";
+        return 'Not set';
     }
 
     return new Date(value).toLocaleString(undefined, {
-        dateStyle: "medium",
-        timeStyle: "short",
+        dateStyle: 'medium',
+        timeStyle: 'short',
     });
 }
 
@@ -76,7 +76,7 @@ export default function EventsIndex({ events }: { events: EventRow[] }) {
                                                 {event.title}
                                             </Link>
                                             <p className="text-muted-foreground">
-                                                {event.venue ?? "Venue TBA"}
+                                                {event.venue ?? 'Venue TBA'}
                                             </p>
                                         </td>
                                         <td className="px-4 py-3">
@@ -92,7 +92,7 @@ export default function EventsIndex({ events }: { events: EventRow[] }) {
                                             {event.teamCount}
                                         </td>
                                         <td className="px-4 py-3">
-                                            {event.capacity ?? "Unlimited"}
+                                            {event.capacity ?? 'Unlimited'}
                                         </td>
                                         <td className="px-4 py-3 text-right">
                                             <Button
@@ -121,12 +121,12 @@ export default function EventsIndex({ events }: { events: EventRow[] }) {
 EventsIndex.layout = {
     breadcrumbs: [
         {
-            title: "Global Dashboard",
-            href: "/super-admin/dashboard",
+            title: 'Global Dashboard',
+            href: '/super-admin/dashboard',
         },
         {
-            title: "All Events",
-            href: "/super-admin/events",
+            title: 'All Events',
+            href: '/super-admin/events',
         },
     ],
 };

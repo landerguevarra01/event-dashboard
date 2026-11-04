@@ -1,21 +1,21 @@
-import { Head, Link, useForm } from "@inertiajs/react";
-import type { FormEvent } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Head, Link, useForm } from '@inertiajs/react';
+import type { FormEvent } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function CreateEvent() {
     const form = useForm({
-        title: "",
-        venue: "",
-        description: "",
-        starts_at: "",
-        ends_at: "",
+        title: '',
+        venue: '',
+        description: '',
+        starts_at: '',
+        ends_at: '',
     });
 
     function submit(e: FormEvent) {
         e.preventDefault();
-        form.post("/super-admin/events");
+        form.post('/super-admin/events');
     }
 
     return (
@@ -40,7 +40,7 @@ export default function CreateEvent() {
                             id="title"
                             value={form.data.title}
                             onChange={(e) =>
-                                form.setData("title", e.target.value)
+                                form.setData('title', e.target.value)
                             }
                             placeholder="e.g. Annual Company Summit"
                             autoFocus
@@ -58,7 +58,7 @@ export default function CreateEvent() {
                             id="venue"
                             value={form.data.venue}
                             onChange={(e) =>
-                                form.setData("venue", e.target.value)
+                                form.setData('venue', e.target.value)
                             }
                             placeholder="Optional"
                         />
@@ -75,7 +75,7 @@ export default function CreateEvent() {
                             id="description"
                             value={form.data.description}
                             onChange={(e) =>
-                                form.setData("description", e.target.value)
+                                form.setData('description', e.target.value)
                             }
                             rows={4}
                             placeholder="Optional"
@@ -96,7 +96,7 @@ export default function CreateEvent() {
                                 type="datetime-local"
                                 value={form.data.starts_at}
                                 onChange={(e) =>
-                                    form.setData("starts_at", e.target.value)
+                                    form.setData('starts_at', e.target.value)
                                 }
                             />
                             {form.errors.starts_at && (
@@ -113,7 +113,7 @@ export default function CreateEvent() {
                                 type="datetime-local"
                                 value={form.data.ends_at}
                                 onChange={(e) =>
-                                    form.setData("ends_at", e.target.value)
+                                    form.setData('ends_at', e.target.value)
                                 }
                             />
                             {form.errors.ends_at && (
@@ -141,12 +141,12 @@ export default function CreateEvent() {
 CreateEvent.layout = {
     breadcrumbs: [
         {
-            title: "All Events",
-            href: "/super-admin/events",
+            title: 'All Events',
+            href: '/super-admin/events',
         },
         {
-            title: "Create Event",
-            href: "/super-admin/events/create",
+            title: 'Create Event',
+            href: '/super-admin/events/create',
         },
     ],
 };

@@ -38,7 +38,7 @@ class EventOrganizerController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'role' => $user->pivot->role,
+                'role' => $user->eventRole(),
             ])->values(),
             'available' => $available->map(fn (User $user) => [
                 'id' => $user->id,
@@ -55,7 +55,7 @@ class EventOrganizerController extends Controller
             'user_id' => ['required', 'integer', 'exists:users,id'],
         ]);
 
-        $user = User::findOrFail($data['user_id']);
+        $user = User::findOrFail((int) $data['user_id']);
 
         abort_unless(
             $user->hasRole(UserRole::EventAdmin, UserRole::Staff),

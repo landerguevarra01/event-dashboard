@@ -1,8 +1,8 @@
-import { Link, usePage } from "@inertiajs/react";
-import type { ReactNode } from "react";
-import { EventStatusBadge } from "@/components/event-status-badge";
-import type { UserRole } from "@/types";
-import type { EventDetail } from "@/types/event";
+import { Link, usePage } from '@inertiajs/react';
+import type { ReactNode } from 'react';
+import { EventStatusBadge } from '@/components/event-status-badge';
+import type { UserRole } from '@/types';
+import type { EventDetail } from '@/types/event';
 
 type Tab = {
     label: string;
@@ -13,25 +13,25 @@ type Tab = {
 
 // Add an entry here as each workspace page is built.
 const tabs: Tab[] = [
-    { label: "Overview", path: "" },
-    { label: "Registrations", path: "/registrations" },
-    { label: "Attendees", path: "/attendees" },
+    { label: 'Overview', path: '' },
+    { label: 'Registrations', path: '/registrations' },
+    { label: 'Attendees', path: '/attendees' },
     {
-        label: "Information",
-        path: "/information",
-        roles: ["super_admin", "event_admin"],
+        label: 'Information',
+        path: '/information',
+        roles: ['super_admin', 'event_admin'],
     },
 ];
 
 function formatRange(start: string | null, end: string | null): string {
     if (!start) {
-        return "Date not set";
+        return 'Date not set';
     }
 
     const format = (value: string) =>
         new Date(value).toLocaleString(undefined, {
-            dateStyle: "medium",
-            timeStyle: "short",
+            dateStyle: 'medium',
+            timeStyle: 'short',
         });
 
     return end ? `${format(start)} - ${format(end)}` : format(start);
@@ -46,7 +46,7 @@ export function EventWorkspaceShell({
 }) {
     const { url, props } = usePage();
     const role = props.auth.user.role;
-    const currentPath = url.split("?")[0];
+    const currentPath = url.split('?')[0];
     const base = `/events/${event.slug}`;
 
     const visibleTabs = tabs.filter(
@@ -64,7 +64,7 @@ export function EventWorkspaceShell({
                     />
                 </div>
                 <p className="text-sm text-muted-foreground">
-                    {event.venue ?? "Venue TBA"} ·{" "}
+                    {event.venue ?? 'Venue TBA'} ·{' '}
                     {formatRange(event.startsAt, event.endsAt)}
                 </p>
             </div>
@@ -73,7 +73,7 @@ export function EventWorkspaceShell({
                 {visibleTabs.map((tab) => {
                     const href = `${base}${tab.path}`;
                     const active =
-                        tab.path === ""
+                        tab.path === ''
                             ? currentPath === base
                             : currentPath.startsWith(href);
 
@@ -83,8 +83,8 @@ export function EventWorkspaceShell({
                             href={href}
                             className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium whitespace-nowrap ${
                                 active
-                                    ? "border-foreground text-foreground"
-                                    : "border-transparent text-muted-foreground hover:text-foreground"
+                                    ? 'border-foreground text-foreground'
+                                    : 'border-transparent text-muted-foreground hover:text-foreground'
                             }`}
                         >
                             {tab.label}

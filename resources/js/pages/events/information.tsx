@@ -1,10 +1,10 @@
-import { Head, useForm } from "@inertiajs/react";
-import type { FormEvent } from "react";
-import { EventWorkspaceShell } from "@/components/event-workspace-shell";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import type { EventDetail } from "@/types/event";
+import { Head, useForm } from '@inertiajs/react';
+import type { FormEvent } from 'react';
+import { EventWorkspaceShell } from '@/components/event-workspace-shell';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { EventDetail } from '@/types/event';
 
 type InformationForm = {
     title: string;
@@ -23,13 +23,13 @@ export default function EventInformation({
 }) {
     const form = useForm({
         title: initial.title,
-        venue: initial.venue ?? "",
-        description: initial.description ?? "",
-        starts_at: initial.starts_at ?? "",
-        ends_at: initial.ends_at ?? "",
+        venue: initial.venue ?? '',
+        description: initial.description ?? '',
+        starts_at: initial.starts_at ?? '',
+        ends_at: initial.ends_at ?? '',
     });
 
-    const locked = event.status === "archived";
+    const locked = event.status === 'archived';
 
     function submit(e: FormEvent) {
         e.preventDefault();
@@ -59,7 +59,7 @@ export default function EventInformation({
                             id="title"
                             value={form.data.title}
                             onChange={(e) =>
-                                form.setData("title", e.target.value)
+                                form.setData('title', e.target.value)
                             }
                             disabled={locked}
                         />
@@ -76,7 +76,7 @@ export default function EventInformation({
                             id="venue"
                             value={form.data.venue}
                             onChange={(e) =>
-                                form.setData("venue", e.target.value)
+                                form.setData('venue', e.target.value)
                             }
                             disabled={locked}
                         />
@@ -93,7 +93,7 @@ export default function EventInformation({
                             id="description"
                             value={form.data.description}
                             onChange={(e) =>
-                                form.setData("description", e.target.value)
+                                form.setData('description', e.target.value)
                             }
                             rows={5}
                             disabled={locked}
@@ -114,7 +114,7 @@ export default function EventInformation({
                                 type="datetime-local"
                                 value={form.data.starts_at}
                                 onChange={(e) =>
-                                    form.setData("starts_at", e.target.value)
+                                    form.setData('starts_at', e.target.value)
                                 }
                                 disabled={locked}
                             />
@@ -132,7 +132,7 @@ export default function EventInformation({
                                 type="datetime-local"
                                 value={form.data.ends_at}
                                 onChange={(e) =>
-                                    form.setData("ends_at", e.target.value)
+                                    form.setData('ends_at', e.target.value)
                                 }
                                 disabled={locked}
                             />
@@ -166,12 +166,12 @@ export default function EventInformation({
 EventInformation.layout = {
     breadcrumbs: [
         {
-            title: "Event Workspace",
-            href: "#",
+            title: 'Event Workspace',
+            href: '#',
         },
         {
-            title: "Information",
-            href: "#",
+            title: 'Information',
+            href: '#',
         },
     ],
 };

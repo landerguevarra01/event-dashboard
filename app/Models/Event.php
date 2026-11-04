@@ -6,14 +6,34 @@ use App\Enums\EventStatus;
 use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
+/**
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ * @property string|null $description
+ * @property string|null $venue
+ * @property Carbon|null $starts_at
+ * @property Carbon|null $ends_at
+ * @property EventStatus $status
+ * @property bool $registration_enabled
+ * @property Carbon|null $registration_opens_at
+ * @property Carbon|null $registration_closes_at
+ * @property int|null $capacity
+ * @property int $created_by
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read int|null $users_count
+ */
 #[Fillable([
     'title',
     'slug',
@@ -30,6 +50,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class Event extends Model
 {
+    /** @use HasFactory<Factory<Event>> */
     use HasFactory;
 
     protected function casts(): array
@@ -70,6 +91,9 @@ class Event extends Model
         return 'slug';
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -77,6 +101,8 @@ class Event extends Model
 
     /**
      * Users assigned to this event, with their per-event role on the pivot.
+     *
+     * @return BelongsToMany<User, $this, Pivot, 'pivot'>
      */
     public function users(): BelongsToMany
     {
@@ -85,11 +111,17 @@ class Event extends Model
             ->withTimestamps();
     }
 
+    /**
+     * @return HasMany<Registration, $this>
+     */
     public function registrations(): HasMany
     {
         return $this->hasMany(Registration::class);
     }
 
+    /**
+     * @return HasMany<Attendee, $this>
+     */
     public function attendees(): HasMany
     {
         return $this->hasMany(Attendee::class);
@@ -98,6 +130,9 @@ class Event extends Model
     /**
      * Events a user is allowed to see: everything for a Super Admin,
      * otherwise only the events they are assigned to.
+     *
+     * @param  Builder<Event>  $query
+     * @return Builder<Event>
      */
     public function scopeVisibleTo(Builder $query, User $user): Builder
     {
@@ -105,12 +140,14 @@ class Event extends Model
             return $query;
         }
 
-        return $query->whereHas('users', fn (Builder $q) => $q->whereKey($user->id));
+        return $query->whereHas('users', fn ($q) => $q->whereKey($user->id));
     }
 
-        /**
+    /**
      * Shape sent to React for event lists (Super Admin, Event Admin, Staff).
      * Expects withCount('users') to have been applied to the query.
+     *
+     * @return array<string, mixed>
      */
     public function toListItem(): array
     {
@@ -127,8 +164,10 @@ class Event extends Model
         ];
     }
 
-        /**
+    /**
      * Full event shape sent to React for the event workspace pages.
+     *
+     * @return array<string, mixed>
      */
     public function toWorkspaceItem(): array
     {

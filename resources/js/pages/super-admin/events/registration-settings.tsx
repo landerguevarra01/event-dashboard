@@ -1,11 +1,11 @@
-import { Head, Link, router, useForm } from "@inertiajs/react";
-import { useState } from "react";
-import type { FormEvent } from "react";
-import { EventStatusBadge } from "@/components/event-status-badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import type { EventStatus } from "@/types/event";
+import { Head, Link, router, useForm } from '@inertiajs/react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { EventStatusBadge } from '@/components/event-status-badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { EventStatus } from '@/types/event';
 
 type EventSummary = {
     id: number;
@@ -31,9 +31,9 @@ export default function RegistrationSettings({
 }) {
     const form = useForm({
         registration_enabled: settings.registration_enabled,
-        registration_opens_at: settings.registration_opens_at ?? "",
-        registration_closes_at: settings.registration_closes_at ?? "",
-        capacity: settings.capacity?.toString() ?? "",
+        registration_opens_at: settings.registration_opens_at ?? '',
+        registration_closes_at: settings.registration_closes_at ?? '',
+        capacity: settings.capacity?.toString() ?? '',
     });
 
     const [publishing, setPublishing] = useState(false);
@@ -91,7 +91,7 @@ export default function RegistrationSettings({
                             checked={form.data.registration_enabled}
                             onChange={(e) =>
                                 form.setData(
-                                    "registration_enabled",
+                                    'registration_enabled',
                                     e.target.checked,
                                 )
                             }
@@ -119,7 +119,7 @@ export default function RegistrationSettings({
                                 value={form.data.registration_opens_at}
                                 onChange={(e) =>
                                     form.setData(
-                                        "registration_opens_at",
+                                        'registration_opens_at',
                                         e.target.value,
                                     )
                                 }
@@ -141,7 +141,7 @@ export default function RegistrationSettings({
                                 value={form.data.registration_closes_at}
                                 onChange={(e) =>
                                     form.setData(
-                                        "registration_closes_at",
+                                        'registration_closes_at',
                                         e.target.value,
                                     )
                                 }
@@ -162,7 +162,7 @@ export default function RegistrationSettings({
                             min={1}
                             value={form.data.capacity}
                             onChange={(e) =>
-                                form.setData("capacity", e.target.value)
+                                form.setData('capacity', e.target.value)
                             }
                             placeholder="Leave empty for unlimited"
                         />
@@ -192,7 +192,7 @@ export default function RegistrationSettings({
                     </div>
                 </form>
 
-                {event.status === "draft" && (
+                {event.status === 'draft' && (
                     <div className="max-w-2xl space-y-3 rounded-xl border border-sidebar-border/70 p-6 dark:border-sidebar-border">
                         <div>
                             <h2 className="font-semibold">Publish event</h2>
@@ -222,12 +222,12 @@ export default function RegistrationSettings({
 RegistrationSettings.layout = {
     breadcrumbs: [
         {
-            title: "All Events",
-            href: "/super-admin/events",
+            title: 'All Events',
+            href: '/super-admin/events',
         },
         {
-            title: "Registration",
-            href: "#",
+            title: 'Registration',
+            href: '#',
         },
     ],
 };

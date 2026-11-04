@@ -1,6 +1,6 @@
-import { Head } from "@inertiajs/react";
-import { EventWorkspaceShell } from "@/components/event-workspace-shell";
-import type { EventDetail } from "@/types/event";
+import { Head } from '@inertiajs/react';
+import { EventWorkspaceShell } from '@/components/event-workspace-shell';
+import type { EventDetail } from '@/types/event';
 
 type TeamMember = {
     id: number;
@@ -10,21 +10,21 @@ type TeamMember = {
 };
 
 const roleLabels: Record<string, string> = {
-    event_admin: "Event Admin",
-    staff: "Staff",
+    event_admin: 'Event Admin',
+    staff: 'Staff',
 };
 
 const panelClass =
-    "rounded-xl border border-sidebar-border/70 dark:border-sidebar-border";
+    'rounded-xl border border-sidebar-border/70 dark:border-sidebar-border';
 
 function formatDate(value: string | null): string {
     if (!value) {
-        return "Not set";
+        return 'Not set';
     }
 
     return new Date(value).toLocaleString(undefined, {
-        dateStyle: "medium",
-        timeStyle: "short",
+        dateStyle: 'medium',
+        timeStyle: 'short',
     });
 }
 
@@ -54,7 +54,7 @@ export default function EventOverview({
                             About this event
                         </h2>
                         <p className="mt-2 text-sm whitespace-pre-line text-muted-foreground">
-                            {event.description ?? "No description yet."}
+                            {event.description ?? 'No description yet.'}
                         </p>
                     </section>
 
@@ -65,8 +65,8 @@ export default function EventOverview({
                                 label="Status"
                                 value={
                                     event.registrationEnabled
-                                        ? "Open"
-                                        : "Closed"
+                                        ? 'Open'
+                                        : 'Closed'
                                 }
                             />
                             <Detail
@@ -80,7 +80,7 @@ export default function EventOverview({
                             <Detail
                                 label="Capacity"
                                 value={
-                                    event.capacity?.toString() ?? "Unlimited"
+                                    event.capacity?.toString() ?? 'Unlimited'
                                 }
                             />
                         </dl>
@@ -126,8 +126,8 @@ export default function EventOverview({
 EventOverview.layout = {
     breadcrumbs: [
         {
-            title: "Event Workspace",
-            href: "#",
+            title: 'Event Workspace',
+            href: '#',
         },
     ],
 };

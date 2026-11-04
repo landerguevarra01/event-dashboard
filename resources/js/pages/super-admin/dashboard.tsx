@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react";
+import { Head } from '@inertiajs/react';
 
 type Stats = {
     totalUsers: number;
@@ -8,7 +8,7 @@ type Stats = {
 };
 
 const cardClass =
-    "rounded-xl border border-sidebar-border/70 p-6 dark:border-sidebar-border";
+    'rounded-xl border border-sidebar-border/70 p-6 dark:border-sidebar-border';
 
 function StatCard({ label, value }: { label: string; value: number }) {
     return (
@@ -51,8 +51,8 @@ export default function SuperAdminDashboard({ stats }: { stats: Stats }) {
 SuperAdminDashboard.layout = {
     breadcrumbs: [
         {
-            title: "Global Dashboard",
-            href: "/super-admin/dashboard",
+            title: 'Global Dashboard',
+            href: '/super-admin/dashboard',
         },
     ],
 };

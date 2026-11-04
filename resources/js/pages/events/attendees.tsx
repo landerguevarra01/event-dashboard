@@ -1,12 +1,12 @@
-import { Head, useForm } from "@inertiajs/react";
-import { QRCodeSVG } from "qrcode.react";
-import { useState } from "react";
-import type { FormEvent } from "react";
-import { EventWorkspaceShell } from "@/components/event-workspace-shell";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import type { EventDetail } from "@/types/event";
+import { Head, useForm } from '@inertiajs/react';
+import { QRCodeSVG } from 'qrcode.react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { EventWorkspaceShell } from '@/components/event-workspace-shell';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { EventDetail } from '@/types/event';
 
 type AttendeeRow = {
     id: number;
@@ -14,7 +14,7 @@ type AttendeeRow = {
     email: string | null;
     phone: string | null;
     organization: string | null;
-    source: "registration" | "walk-in";
+    source: 'registration' | 'walk-in';
     qrToken: string;
     checkedIn: boolean;
     checkedInAt: string | null;
@@ -26,7 +26,7 @@ type Counts = {
 };
 
 const panelClass =
-    "rounded-xl border border-sidebar-border/70 dark:border-sidebar-border";
+    'rounded-xl border border-sidebar-border/70 dark:border-sidebar-border';
 
 function SummaryCard({ label, value }: { label: string; value: string }) {
     return (
@@ -55,7 +55,7 @@ function QrDialog({
             >
                 <p className="font-semibold">{attendee.name}</p>
                 <p className="text-sm text-muted-foreground">
-                    {attendee.organization ?? "No organization"}
+                    {attendee.organization ?? 'No organization'}
                 </p>
 
                 {/* White background keeps the code scannable in dark mode. */}
@@ -84,18 +84,18 @@ export default function Attendees({
     attendees: AttendeeRow[];
     counts: Counts;
 }) {
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
     const [showForm, setShowForm] = useState(false);
     const [qrFor, setQrFor] = useState<AttendeeRow | null>(null);
 
     const form = useForm({
-        name: "",
-        email: "",
-        phone: "",
-        organization: "",
+        name: '',
+        email: '',
+        phone: '',
+        organization: '',
     });
 
-    const closed = event.status === "completed" || event.status === "archived";
+    const closed = event.status === 'completed' || event.status === 'archived';
     const actionError = (form.errors as Record<string, string | undefined>)
         .attendee;
 
@@ -134,7 +134,7 @@ export default function Attendees({
                     />
                     <SummaryCard
                         label="Capacity"
-                        value={event.capacity?.toString() ?? "Unlimited"}
+                        value={event.capacity?.toString() ?? 'Unlimited'}
                     />
                 </div>
 
@@ -156,7 +156,7 @@ export default function Attendees({
                         onClick={() => setShowForm((open) => !open)}
                         disabled={closed}
                     >
-                        {showForm ? "Cancel" : "Add walk-in"}
+                        {showForm ? 'Cancel' : 'Add walk-in'}
                     </Button>
                 </div>
 
@@ -182,7 +182,7 @@ export default function Attendees({
                                     id="name"
                                     value={form.data.name}
                                     onChange={(e) =>
-                                        form.setData("name", e.target.value)
+                                        form.setData('name', e.target.value)
                                     }
                                     autoFocus
                                 />
@@ -200,7 +200,7 @@ export default function Attendees({
                                     type="email"
                                     value={form.data.email}
                                     onChange={(e) =>
-                                        form.setData("email", e.target.value)
+                                        form.setData('email', e.target.value)
                                     }
                                 />
                                 {form.errors.email && (
@@ -216,7 +216,7 @@ export default function Attendees({
                                     id="phone"
                                     value={form.data.phone}
                                     onChange={(e) =>
-                                        form.setData("phone", e.target.value)
+                                        form.setData('phone', e.target.value)
                                     }
                                 />
                                 {form.errors.phone && (
@@ -235,7 +235,7 @@ export default function Attendees({
                                     value={form.data.organization}
                                     onChange={(e) =>
                                         form.setData(
-                                            "organization",
+                                            'organization',
                                             e.target.value,
                                         )
                                     }
@@ -258,8 +258,8 @@ export default function Attendees({
                     {visible.length === 0 ? (
                         <p className="p-6 text-sm text-muted-foreground">
                             {attendees.length === 0
-                                ? "No attendees yet. Approve registrations or add a walk-in."
-                                : "No attendees match your search."}
+                                ? 'No attendees yet. Approve registrations or add a walk-in.'
+                                : 'No attendees match your search.'}
                         </p>
                     ) : (
                         <table className="w-full text-left text-sm">
@@ -293,16 +293,16 @@ export default function Attendees({
                                                 {attendee.name}
                                             </p>
                                             <p className="text-muted-foreground">
-                                                {attendee.email ?? "No email"}
+                                                {attendee.email ?? 'No email'}
                                             </p>
                                         </td>
                                         <td className="px-4 py-3">
-                                            {attendee.organization ?? "-"}
+                                            {attendee.organization ?? '-'}
                                         </td>
                                         <td className="px-4 py-3">
-                                            {attendee.source === "walk-in"
-                                                ? "Walk-in"
-                                                : "Registered"}
+                                            {attendee.source === 'walk-in'
+                                                ? 'Walk-in'
+                                                : 'Registered'}
                                         </td>
                                         <td className="px-4 py-3">
                                             {attendee.checkedIn ? (
@@ -344,12 +344,12 @@ export default function Attendees({
 Attendees.layout = {
     breadcrumbs: [
         {
-            title: "Event Workspace",
-            href: "#",
+            title: 'Event Workspace',
+            href: '#',
         },
         {
-            title: "Attendees",
-            href: "#",
+            title: 'Attendees',
+            href: '#',
         },
     ],
 };

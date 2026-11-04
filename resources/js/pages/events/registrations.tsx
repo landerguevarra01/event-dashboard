@@ -1,10 +1,10 @@
-import { Head, router } from "@inertiajs/react";
-import { useState } from "react";
-import { EventWorkspaceShell } from "@/components/event-workspace-shell";
-import { Button } from "@/components/ui/button";
-import type { EventDetail } from "@/types/event";
+import { Head, router } from '@inertiajs/react';
+import { useState } from 'react';
+import { EventWorkspaceShell } from '@/components/event-workspace-shell';
+import { Button } from '@/components/ui/button';
+import type { EventDetail } from '@/types/event';
 
-type RegistrationStatus = "pending" | "approved" | "rejected" | "cancelled";
+type RegistrationStatus = 'pending' | 'approved' | 'rejected' | 'cancelled';
 
 type RegistrationRow = {
     id: number;
@@ -23,33 +23,33 @@ type Counts = Record<RegistrationStatus, number>;
 
 const statusStyles: Record<RegistrationStatus, string> = {
     pending:
-        "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
+        'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300',
     approved:
-        "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300",
-    rejected: "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300",
+        'bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300',
+    rejected: 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300',
     cancelled:
-        "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
+        'bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300',
 };
 
-const filters: { label: string; value: RegistrationStatus | "all" }[] = [
-    { label: "All", value: "all" },
-    { label: "Pending", value: "pending" },
-    { label: "Approved", value: "approved" },
-    { label: "Rejected", value: "rejected" },
-    { label: "Cancelled", value: "cancelled" },
+const filters: { label: string; value: RegistrationStatus | 'all' }[] = [
+    { label: 'All', value: 'all' },
+    { label: 'Pending', value: 'pending' },
+    { label: 'Approved', value: 'approved' },
+    { label: 'Rejected', value: 'rejected' },
+    { label: 'Cancelled', value: 'cancelled' },
 ];
 
 const panelClass =
-    "rounded-xl border border-sidebar-border/70 dark:border-sidebar-border";
+    'rounded-xl border border-sidebar-border/70 dark:border-sidebar-border';
 
 function formatDate(value: string | null): string {
     if (!value) {
-        return "-";
+        return '-';
     }
 
     return new Date(value).toLocaleString(undefined, {
-        dateStyle: "medium",
-        timeStyle: "short",
+        dateStyle: 'medium',
+        timeStyle: 'short',
     });
 }
 
@@ -73,17 +73,17 @@ export default function Registrations({
     counts: Counts;
     attendeeCount: number;
 }) {
-    const [filter, setFilter] = useState<RegistrationStatus | "all">("all");
+    const [filter, setFilter] = useState<RegistrationStatus | 'all'>('all');
     const [busyId, setBusyId] = useState<number | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const closed = event.status === "completed" || event.status === "archived";
+    const closed = event.status === 'completed' || event.status === 'archived';
     const visible =
-        filter === "all"
+        filter === 'all'
             ? registrations
             : registrations.filter((row) => row.status === filter);
 
-    function review(row: RegistrationRow, action: "approve" | "reject") {
+    function review(row: RegistrationRow, action: 'approve' | 'reject') {
         router.post(
             `/events/${event.slug}/registrations/${row.id}/${action}`,
             {},
@@ -118,7 +118,7 @@ export default function Registrations({
                     />
                     <SummaryCard
                         label="Attendees / capacity"
-                        value={`${attendeeCount} / ${event.capacity ?? "Unlimited"}`}
+                        value={`${attendeeCount} / ${event.capacity ?? 'Unlimited'}`}
                     />
                 </div>
 
@@ -141,7 +141,7 @@ export default function Registrations({
                             key={item.value}
                             size="sm"
                             variant={
-                                filter === item.value ? "default" : "outline"
+                                filter === item.value ? 'default' : 'outline'
                             }
                             onClick={() => setFilter(item.value)}
                         >
@@ -191,7 +191,7 @@ export default function Registrations({
                                             </p>
                                         </td>
                                         <td className="px-4 py-3">
-                                            {row.organization ?? "-"}
+                                            {row.organization ?? '-'}
                                         </td>
                                         <td className="px-4 py-3">
                                             {formatDate(row.registeredAt)}
@@ -204,7 +204,7 @@ export default function Registrations({
                                             </span>
                                         </td>
                                         <td className="px-4 py-3 text-right">
-                                            {row.status === "pending" &&
+                                            {row.status === 'pending' &&
                                             !closed ? (
                                                 <div className="flex justify-end gap-2">
                                                     <Button
@@ -215,7 +215,7 @@ export default function Registrations({
                                                         onClick={() =>
                                                             review(
                                                                 row,
-                                                                "approve",
+                                                                'approve',
                                                             )
                                                         }
                                                     >
@@ -230,7 +230,7 @@ export default function Registrations({
                                                         onClick={() =>
                                                             review(
                                                                 row,
-                                                                "reject",
+                                                                'reject',
                                                             )
                                                         }
                                                     >
@@ -241,7 +241,7 @@ export default function Registrations({
                                                 <span className="text-muted-foreground">
                                                     {row.reviewedAt
                                                         ? `Reviewed ${formatDate(row.reviewedAt)}`
-                                                        : "-"}
+                                                        : '-'}
                                                 </span>
                                             )}
                                         </td>
@@ -259,12 +259,12 @@ export default function Registrations({
 Registrations.layout = {
     breadcrumbs: [
         {
-            title: "Event Workspace",
-            href: "#",
+            title: 'Event Workspace',
+            href: '#',
         },
         {
-            title: "Registrations",
-            href: "#",
+            title: 'Registrations',
+            href: '#',
         },
     ],
 };

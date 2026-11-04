@@ -1,18 +1,18 @@
-import { Head, Link } from "@inertiajs/react";
-import { EventStatusBadge } from "@/components/event-status-badge";
-import type { EventRow } from "@/types/event";
+import { Head, Link } from '@inertiajs/react';
+import { EventStatusBadge } from '@/components/event-status-badge';
+import type { EventRow } from '@/types/event';
 
 const cardClass =
-    "rounded-xl border border-sidebar-border/70 p-5 dark:border-sidebar-border";
+    'rounded-xl border border-sidebar-border/70 p-5 dark:border-sidebar-border';
 
 function formatDate(value: string | null): string {
     if (!value) {
-        return "Date not set";
+        return 'Date not set';
     }
 
     return new Date(value).toLocaleString(undefined, {
-        dateStyle: "medium",
-        timeStyle: "short",
+        dateStyle: 'medium',
+        timeStyle: 'short',
     });
 }
 
@@ -58,7 +58,7 @@ export default function EventAdminDashboard({
                                 </div>
 
                                 <p className="mt-1 text-sm text-muted-foreground">
-                                    {event.venue ?? "Venue TBA"}
+                                    {event.venue ?? 'Venue TBA'}
                                 </p>
 
                                 <dl className="mt-4 space-y-1 text-sm">
@@ -78,7 +78,7 @@ export default function EventAdminDashboard({
                                         <dt className="text-muted-foreground">
                                             Capacity
                                         </dt>
-                                        <dd>{event.capacity ?? "Unlimited"}</dd>
+                                        <dd>{event.capacity ?? 'Unlimited'}</dd>
                                     </div>
                                 </dl>
                             </Link>
@@ -93,8 +93,8 @@ export default function EventAdminDashboard({
 EventAdminDashboard.layout = {
     breadcrumbs: [
         {
-            title: "Assigned Events",
-            href: "/event-admin/dashboard",
+            title: 'Assigned Events',
+            href: '/event-admin/dashboard',
         },
     ],
 };

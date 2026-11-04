@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Event;
 
+use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -19,6 +20,7 @@ class StoreAttendeeRequest extends FormRequest
     public function rules(): array
     {
         $event = $this->route('event');
+        assert($event instanceof Event);
 
         return [
             'name' => ['required', 'string', 'max:255'],

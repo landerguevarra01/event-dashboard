@@ -92,11 +92,14 @@ class DemoRegistrationSeeder extends Seeder
                     'name' => $name,
                     'email' => $email,
                     'organization' => $organization,
-                ], $row['in'] ?? false);
+                ], $row['in']);
             }
         }
     }
 
+    /**
+     * @param  array<string, mixed>  $attributes
+     */
     private function attendee(Event $event, User $staff, array $attributes, bool $checkedIn): void
     {
         Attendee::updateOrCreate(

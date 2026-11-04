@@ -12,7 +12,7 @@ class AddWalkInAttendee
     /**
      * Add an attendee directly, without a registration (a walk-in).
      *
-     * @param  array{name: string, email?: ?string, phone?: ?string, organization?: ?string}  $data
+     * @param  array<string, mixed>  $data
      *
      * @throws ValidationException
      */

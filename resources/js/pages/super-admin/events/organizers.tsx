@@ -1,7 +1,7 @@
-import { Head, Link, router } from "@inertiajs/react";
-import { EventStatusBadge } from "@/components/event-status-badge";
-import { Button } from "@/components/ui/button";
-import type { EventStatus } from "@/types/event";
+import { Head, Link, router } from '@inertiajs/react';
+import { EventStatusBadge } from '@/components/event-status-badge';
+import { Button } from '@/components/ui/button';
+import type { EventStatus } from '@/types/event';
 
 type EventSummary = {
     id: number;
@@ -19,12 +19,12 @@ type Person = {
 };
 
 const roleLabels: Record<string, string> = {
-    event_admin: "Event Admin",
-    staff: "Staff",
+    event_admin: 'Event Admin',
+    staff: 'Staff',
 };
 
 const panelClass =
-    "rounded-xl border border-sidebar-border/70 dark:border-sidebar-border";
+    'rounded-xl border border-sidebar-border/70 dark:border-sidebar-border';
 
 function PersonRow({
     person,
@@ -167,12 +167,12 @@ export default function EventOrganizers({
 EventOrganizers.layout = {
     breadcrumbs: [
         {
-            title: "All Events",
-            href: "/super-admin/events",
+            title: 'All Events',
+            href: '/super-admin/events',
         },
         {
-            title: "Organizers",
-            href: "#",
+            title: 'Organizers',
+            href: '#',
         },
     ],
 };

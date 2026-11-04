@@ -22,7 +22,7 @@ class OverviewController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'role' => $user->pivot->role,
+                'role' => $user->eventRole(),
             ])->values(),
         ]);
     }

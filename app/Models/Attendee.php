@@ -3,11 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
+/**
+ * @property int $id
+ * @property int $event_id
+ * @property int|null $registration_id
+ * @property string $name
+ * @property string|null $email
+ * @property string|null $phone
+ * @property string|null $organization
+ * @property string $qr_token
+ * @property Carbon|null $checked_in_at
+ * @property int|null $checked_in_by
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ */
 #[Fillable([
     'event_id',
     'registration_id',
@@ -21,6 +37,7 @@ use Illuminate\Support\Str;
 ])]
 class Attendee extends Model
 {
+    /** @use HasFactory<Factory<Attendee>> */
     use HasFactory;
 
     protected function casts(): array
@@ -44,6 +61,9 @@ class Attendee extends Model
         });
     }
 
+    /**
+     * @return BelongsTo<Event, $this>
+     */
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
@@ -51,6 +71,8 @@ class Attendee extends Model
 
     /**
      * The registration this attendee came from. Null for walk-ins.
+     *
+     * @return BelongsTo<Registration, $this>
      */
     public function registration(): BelongsTo
     {
@@ -59,6 +81,8 @@ class Attendee extends Model
 
     /**
      * The user who scanned this attendee in.
+     *
+     * @return BelongsTo<User, $this>
      */
     public function checkedInBy(): BelongsTo
     {
@@ -72,6 +96,8 @@ class Attendee extends Model
 
     /**
      * Shape sent to React for attendee lists.
+     *
+     * @return array<string, mixed>
      */
     public function toListItem(): array
     {

@@ -1,10 +1,10 @@
-import { Head, router } from "@inertiajs/react";
-import { Html5Qrcode } from "html5-qrcode";
-import { useEffect, useRef, useState } from "react";
-import { EventWorkspaceShell } from "@/components/event-workspace-shell";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import type { EventDetail } from "@/types/event";
+import { Head, router } from '@inertiajs/react';
+import { Html5Qrcode } from 'html5-qrcode';
+import { useEffect, useRef, useState } from 'react';
+import { EventWorkspaceShell } from '@/components/event-workspace-shell';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import type { EventDetail } from '@/types/event';
 
 type AttendeeOption = {
     id: number;
@@ -28,22 +28,22 @@ type Counts = {
 };
 
 type ScanResult =
-    | { kind: "success" | "duplicate"; name: string; at: string | null }
-    | { kind: "error"; message: string };
+    | { kind: 'success' | 'duplicate'; name: string; at: string | null }
+    | { kind: 'error'; message: string };
 
-const READER_ID = "qr-reader";
+const READER_ID = 'qr-reader';
 
 const panelClass =
-    "rounded-xl border border-sidebar-border/70 dark:border-sidebar-border";
+    'rounded-xl border border-sidebar-border/70 dark:border-sidebar-border';
 
 function formatTime(value: string | null): string {
     if (!value) {
-        return "-";
+        return '-';
     }
 
     return new Date(value).toLocaleTimeString(undefined, {
-        hour: "numeric",
-        minute: "2-digit",
+        hour: 'numeric',
+        minute: '2-digit',
     });
 }
 
@@ -52,7 +52,7 @@ function formatTime(value: string | null): string {
 function xsrfToken(): string {
     const match = document.cookie.match(/(?:^|; )XSRF-TOKEN=([^;]+)/);
 
-    return match ? decodeURIComponent(match[1]) : "";
+    return match ? decodeURIComponent(match[1]) : '';
 }
 
 export default function CheckIn({
@@ -70,17 +70,17 @@ export default function CheckIn({
     const [cameraError, setCameraError] = useState<string | null>(null);
     const [result, setResult] = useState<ScanResult | null>(null);
     const [manualError, setManualError] = useState<string | null>(null);
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
     const [busyId, setBusyId] = useState<number | null>(null);
 
     const scannerRef = useRef<Html5Qrcode | null>(null);
     const processingRef = useRef(false);
     const lastScanRef = useRef<{ token: string; at: number }>({
-        token: "",
+        token: '',
         at: 0,
     });
 
-    const active = event.status === "published" || event.status === "ongoing";
+    const active = event.status === 'published' || event.status === 'ongoing';
 
     async function handleDecoded(token: string) {
         const now = Date.now();
@@ -105,13 +105,13 @@ export default function CheckIn({
             const response = await fetch(
                 `/events/${event.slug}/check-in/scan`,
                 {
-                    method: "POST",
-                    credentials: "same-origin",
+                    method: 'POST',
+                    credentials: 'same-origin',
                     headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-XSRF-TOKEN": xsrfToken(),
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-XSRF-TOKEN': xsrfToken(),
                     },
                     body: JSON.stringify({ token }),
                 },
@@ -122,24 +122,24 @@ export default function CheckIn({
             if (response.ok && data) {
                 setResult({
                     kind:
-                        data.status === "checked_in" ? "success" : "duplicate",
+                        data.status === 'checked_in' ? 'success' : 'duplicate',
                     name: data.attendee.name,
                     at: data.attendee.checkedInAt,
                 });
-                router.reload({ only: ["attendees", "recent", "counts"] });
+                router.reload({ only: ['attendees', 'recent', 'counts'] });
             } else {
                 setResult({
-                    kind: "error",
+                    kind: 'error',
                     message:
                         data?.errors?.token?.[0] ??
                         data?.message ??
-                        "Something went wrong. Please try again.",
+                        'Something went wrong. Please try again.',
                 });
             }
         } catch {
             setResult({
-                kind: "error",
-                message: "Could not reach the server.",
+                kind: 'error',
+                message: 'Could not reach the server.',
             });
         } finally {
             processingRef.current = false;
@@ -158,7 +158,7 @@ export default function CheckIn({
             scannerRef.current = scanner;
 
             await scanner.start(
-                { facingMode: "environment" },
+                { facingMode: 'environment' },
                 { fps: 10, qrbox: { width: 240, height: 240 } },
                 (text) => {
                     void handlerRef.current(text);
@@ -170,7 +170,7 @@ export default function CheckIn({
         } catch {
             scannerRef.current = null;
             setCameraError(
-                "Could not start the camera. Allow camera access in your browser. The camera only works on https:// or localhost.",
+                'Could not start the camera. Allow camera access in your browser. The camera only works on https:// or localhost.',
             );
         }
     }
@@ -235,10 +235,10 @@ export default function CheckIn({
 
     const resultStyles = {
         success:
-            "border-green-300 bg-green-50 text-green-800 dark:border-green-900 dark:bg-green-950 dark:text-green-300",
+            'border-green-300 bg-green-50 text-green-800 dark:border-green-900 dark:bg-green-950 dark:text-green-300',
         duplicate:
-            "border-amber-300 bg-amber-50 text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300",
-        error: "border-red-300 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300",
+            'border-amber-300 bg-amber-50 text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300',
+        error: 'border-red-300 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300',
     };
 
     return (
@@ -267,7 +267,7 @@ export default function CheckIn({
                 {!active && (
                     <p className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
                         Check-in is only available while the event is published
-                        or ongoing. This event is{" "}
+                        or ongoing. This event is{' '}
                         {event.statusLabel.toLowerCase()}.
                     </p>
                 )}
@@ -307,7 +307,7 @@ export default function CheckIn({
                             <div
                                 className={`mt-3 rounded-lg border px-4 py-3 text-sm ${resultStyles[result.kind]}`}
                             >
-                                {result.kind === "success" && (
+                                {result.kind === 'success' && (
                                     <>
                                         <p className="font-semibold">
                                             Checked in
@@ -315,18 +315,18 @@ export default function CheckIn({
                                         <p>{result.name}</p>
                                     </>
                                 )}
-                                {result.kind === "duplicate" && (
+                                {result.kind === 'duplicate' && (
                                     <>
                                         <p className="font-semibold">
                                             Already checked in
                                         </p>
                                         <p>
-                                            {result.name} at{" "}
+                                            {result.name} at{' '}
                                             {formatTime(result.at)}
                                         </p>
                                     </>
                                 )}
-                                {result.kind === "error" && (
+                                {result.kind === 'error' && (
                                     <>
                                         <p className="font-semibold">
                                             Not accepted
@@ -342,8 +342,8 @@ export default function CheckIn({
                             id={READER_ID}
                             className={
                                 scanning
-                                    ? "mt-4 w-full max-w-md overflow-hidden rounded-lg"
-                                    : "hidden"
+                                    ? 'mt-4 w-full max-w-md overflow-hidden rounded-lg'
+                                    : 'hidden'
                             }
                         />
 
@@ -376,7 +376,7 @@ export default function CheckIn({
                                                 {item.name}
                                             </p>
                                             <p className="text-muted-foreground">
-                                                {item.organization ?? "-"}
+                                                {item.organization ?? '-'}
                                             </p>
                                         </div>
                                         <span className="text-muted-foreground">
@@ -411,8 +411,8 @@ export default function CheckIn({
                     {visible.length === 0 ? (
                         <p className="p-5 text-sm text-muted-foreground">
                             {attendees.length === 0
-                                ? "No attendees yet."
-                                : "No attendees match your search."}
+                                ? 'No attendees yet.'
+                                : 'No attendees match your search.'}
                         </p>
                     ) : (
                         <ul className="max-h-96 overflow-y-auto">
@@ -428,13 +428,13 @@ export default function CheckIn({
                                         <p className="text-sm text-muted-foreground">
                                             {attendee.organization ??
                                                 attendee.email ??
-                                                "-"}
+                                                '-'}
                                         </p>
                                     </div>
 
                                     {attendee.checkedIn ? (
                                         <span className="text-sm text-green-600">
-                                            Checked in{" "}
+                                            Checked in{' '}
                                             {formatTime(attendee.checkedInAt)}
                                         </span>
                                     ) : (
@@ -465,12 +465,12 @@ export default function CheckIn({
 CheckIn.layout = {
     breadcrumbs: [
         {
-            title: "Event Workspace",
-            href: "#",
+            title: 'Event Workspace',
+            href: '#',
         },
         {
-            title: "Check-in",
-            href: "#",
+            title: 'Check-in',
+            href: '#',
         },
     ],
 };
