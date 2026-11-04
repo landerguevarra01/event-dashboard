@@ -30,6 +30,11 @@ use Illuminate\Support\Str;
  * @property Carbon|null $registration_closes_at
  * @property int|null $capacity
  * @property int $created_by
+ * @property Carbon|null $attendance_reviewed_at
+ * @property int|null $attendance_reviewed_by
+ * @property Carbon|null $started_at
+ * @property Carbon|null $completed_at
+ * @property Carbon|null $archived_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read int|null $users_count
@@ -47,6 +52,11 @@ use Illuminate\Support\Str;
     'registration_closes_at',
     'capacity',
     'created_by',
+    'attendance_reviewed_at',
+    'attendance_reviewed_by',
+    'started_at',
+    'completed_at',
+    'archived_at',
 ])]
 class Event extends Model
 {
@@ -62,6 +72,10 @@ class Event extends Model
             'registration_enabled' => 'boolean',
             'registration_opens_at' => 'datetime',
             'registration_closes_at' => 'datetime',
+            'attendance_reviewed_at' => 'datetime',
+            'started_at' => 'datetime',
+            'completed_at' => 'datetime',
+            'archived_at' => 'datetime',
         ];
     }
 
@@ -97,6 +111,16 @@ class Event extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * The user who confirmed the attendance numbers (Review Attendance step).
+     *
+     * @return BelongsTo<User, $this>
+     */
+    public function attendanceReviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'attendance_reviewed_by');
     }
 
     /**
@@ -185,6 +209,10 @@ class Event extends Model
             'registrationEnabled' => $this->registration_enabled,
             'registrationOpensAt' => $this->registration_opens_at?->toIso8601String(),
             'registrationClosesAt' => $this->registration_closes_at?->toIso8601String(),
+            'attendanceReviewedAt' => $this->attendance_reviewed_at?->toIso8601String(),
+            'startedAt' => $this->started_at?->toIso8601String(),
+            'completedAt' => $this->completed_at?->toIso8601String(),
+            'archivedAt' => $this->archived_at?->toIso8601String(),
         ];
     }
 }

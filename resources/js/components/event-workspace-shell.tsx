@@ -17,9 +17,20 @@ const tabs: Tab[] = [
     { label: 'Registrations', path: '/registrations' },
     { label: 'Attendees', path: '/attendees' },
     { label: 'Check-in', path: '/check-in' },
+    { label: 'Live', path: '/live' },
     {
         label: 'Information',
         path: '/information',
+        roles: ['super_admin', 'event_admin'],
+    },
+    {
+        label: 'Operations',
+        path: '/operations',
+        roles: ['super_admin', 'event_admin'],
+    },
+    {
+        label: 'Review',
+        path: '/review-attendance',
         roles: ['super_admin', 'event_admin'],
     },
 ];

@@ -33,4 +33,8 @@ export type EventDetail = {
     registrationEnabled: boolean;
     registrationOpensAt: string | null;
     registrationClosesAt: string | null;
+    attendanceReviewedAt: string | null;
+    startedAt: string | null;
+    completedAt: string | null;
+    archivedAt: string | null;
 };
