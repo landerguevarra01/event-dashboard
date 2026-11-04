@@ -337,14 +337,11 @@ export default function CheckIn({
                             </div>
                         )}
 
-                        {/* The camera preview is drawn into this element. */}
+                        {/* The camera preview is drawn into this element.
+                            It must never be display:none when the camera starts. */}
                         <div
                             id={READER_ID}
-                            className={
-                                scanning
-                                    ? 'mt-4 w-full max-w-md overflow-hidden rounded-lg'
-                                    : 'hidden'
-                            }
+                            className="mt-4 w-full max-w-md overflow-hidden rounded-lg"
                         />
 
                         {!scanning && (

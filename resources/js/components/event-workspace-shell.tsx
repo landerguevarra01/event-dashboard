@@ -16,6 +16,7 @@ const tabs: Tab[] = [
     { label: 'Overview', path: '' },
     { label: 'Registrations', path: '/registrations' },
     { label: 'Attendees', path: '/attendees' },
+    { label: 'Check-in', path: '/check-in' },
     {
         label: 'Information',
         path: '/information',
